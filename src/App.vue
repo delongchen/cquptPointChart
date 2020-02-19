@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <p v-for="(v, k) in li" :key="k">{{ v }}: {{ k }}</p>
+    <router-view></router-view>
+    <room-grade></room-grade>
   </div>
 </template>
 
 <script>
+  import RoomGrade from "@/components/RoomGrade";
 export default {
   name: 'App',
   components: {
+    RoomGrade
   },
-  data: () => ({
-    li: [1, 43, 54, 54]
-  })
 }
 </script>
 
