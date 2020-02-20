@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <router-view></router-view>
-    <room-grade></room-grade>
+    <d-header />
+    <router-view />
   </div>
 </template>
 
 <script>
-  import RoomGrade from "@/components/RoomGrade";
+  import DHeader from "@/components/DHeader";
 export default {
   name: 'App',
   components: {
-    RoomGrade
+    DHeader
   },
 }
 </script>

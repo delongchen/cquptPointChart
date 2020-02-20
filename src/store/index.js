@@ -3,8 +3,14 @@ import Vuex from "vuex"
 
 Vue.use(Vuex);
 
+import {roomStore} from "@/store/modules/room_store";
+
 export const store = new Vuex.Store({
   state: {
-
+  },
+  mutations: {
+  },
+  modules: {
+    roomStore
   }
 });
