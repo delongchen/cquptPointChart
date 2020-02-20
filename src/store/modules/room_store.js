@@ -17,12 +17,14 @@ export const roomStore = {
         .then(response => {
           commit('addRoomInfo', helper.transRoomInfo(response.data))
         })
-        .catch(e => dispatch('alterError', e))
+        .catch(e => {
+          dispatch('alertError', e)
+        })
     }
   },
   getters: {
     getContainer(state) {
       return state.infoContainer;
     }
-  }
+  },
 };

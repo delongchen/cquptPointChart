@@ -14,7 +14,6 @@
 
 <script>
   import {mapGetters} from 'vuex'
-  import axios from "axios";
   export default {
     name: "RoomSelector",
     computed: {
@@ -24,7 +23,7 @@
     },
     methods: {
       getOne() {
-        this.$store.dispatch('parseRoomInfo', './data.json')
+        this.$store.dispatch('parseRoomInfo', './test.json')
       },
       al(i) {
         this.$store.dispatch('alertError', i)
