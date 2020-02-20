@@ -4,6 +4,7 @@ import Vuex from "vuex"
 Vue.use(Vuex);
 
 import {roomStore} from "@/store/modules/room_store";
+import {errors} from "@/store/modules/errors";
 
 export const store = new Vuex.Store({
   state: {
@@ -11,6 +12,7 @@ export const store = new Vuex.Store({
   mutations: {
   },
   modules: {
-    roomStore
+    roomStore,
+    errors
   }
 });

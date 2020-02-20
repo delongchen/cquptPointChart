@@ -1,17 +1,19 @@
 <template>
-  <div id="app">
-    <d-header />
+  <b-container id="app">
+    <error-alert />
     <router-view />
-  </div>
+  </b-container>
 </template>
 
 <script>
-  import DHeader from "@/components/DHeader";
+  import ErrorAlert from "@/components/error_alert/ErrorAlert";
 export default {
   name: 'App',
   components: {
-    DHeader
+    ErrorAlert
   },
+  methods: {
+  }
 }
 </script>
 

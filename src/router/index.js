@@ -1,14 +1,24 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-
-import RoomMain from "@/components/room_grade/RoomMain";
 Vue.use(VueRouter);
 
+import RoomMain from "@/components/room_grade/RoomMain";
+import RoomChart from "@/components/room_grade/RoomChart";
+import RoomSelector from "@/components/room_grade/RoomSelector";
+
 const routes = [
-  { path: '/', component: RoomMain }
+  {
+    path: '/',
+    component: RoomMain,
+    children: [
+      {path: '', component: RoomSelector},
+      {path: 'chart', component: RoomChart}
+    ]
+  },
 ];
 
 export const router = new VueRouter({
+  mode: 'history',
   routes
 });

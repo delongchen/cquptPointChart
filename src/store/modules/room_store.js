@@ -1,3 +1,7 @@
+import {helper} from "@/utils/util";
+import axios from 'axios'
+
+
 export const roomStore = {
   state: {
     infoContainer: []
@@ -8,10 +12,12 @@ export const roomStore = {
     }
   },
   actions: {
-    parseRoomInfo({commit}, data) {
-      //TODO
-      // we need a function to translate data
-      commit('addRoomInfo', data)
+    parseRoomInfo({commit, dispatch}, path) {
+      axios.get(path)
+        .then(response => {
+          commit('addRoomInfo', helper.transRoomInfo(response.data))
+        })
+        .catch(e => dispatch('alterError', e))
     }
   },
   getters: {

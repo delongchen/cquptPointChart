@@ -1,17 +1,32 @@
 <template>
   <div>
-    <h3>This is room main page</h3>
-    <room-chart />
+    <b-card no-body title="main">
+
+      <b-card-header header-tag="nav">
+        <b-nav card-header tabs fill>
+          <b-nav-item to="/" exact exact-active-class="active">Form</b-nav-item>
+          <b-nav-item to="/chart" exact exact-active-class="active">Chart</b-nav-item>
+        </b-nav>
+      </b-card-header>
+
+      <b-card-body>
+        <router-view />
+      </b-card-body>
+
+    </b-card>
   </div>
 </template>
 
 <script>
-  import RoomChart from "@/components/room_grade/RoomChart";
-
   export default {
     name: "RoomMain",
     components: {
-      RoomChart
+    },
+    data: () => ({
+    }),
+    methods: {
+    },
+    mounted() {
     }
   }
 </script>
