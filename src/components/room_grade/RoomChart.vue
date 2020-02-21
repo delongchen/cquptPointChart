@@ -1,10 +1,19 @@
 <template>
-  <h3>This is chart</h3>
+  <b-container>
+    <point-chart />
+  </b-container>
 </template>
 
 <script>
+  import PointChart from "@/components/room_grade/PointChart";
   export default {
-    name: "RoomChart"
+    name: "RoomChart",
+    components: {
+      PointChart
+    },
+    data: () => ({
+
+    }),
   }
 </script>
 

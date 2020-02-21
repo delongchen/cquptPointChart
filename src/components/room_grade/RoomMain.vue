@@ -4,8 +4,22 @@
 
       <b-card-header header-tag="nav">
         <b-nav card-header tabs fill>
-          <b-nav-item to="/" exact exact-active-class="active">Form</b-nav-item>
-          <b-nav-item to="/chart" exact exact-active-class="active">Chart</b-nav-item>
+          <b-nav-item to="/" exact exact-active-class="active">Selector</b-nav-item>
+          <b-nav-item
+              id="chart_button"
+              to="/chart"
+              exact
+              exact-active-class="active"
+              :disabled="isEmpty">Chart</b-nav-item>
+
+          <b-popover
+              target="chart_button"
+              :disabled="!isEmpty"
+              triggers="hover"
+              placement="bottom">
+            <template v-slot:title>Popover Title</template>
+            I am popover <b>component</b> content!
+          </b-popover>
         </b-nav>
       </b-card-header>
 
@@ -18,6 +32,8 @@
 </template>
 
 <script>
+  import {mapGetters} from 'vuex'
+
   export default {
     name: "RoomMain",
     components: {
@@ -27,6 +43,11 @@
     methods: {
     },
     mounted() {
+    },
+    computed: {
+      ...mapGetters({
+        isEmpty: 'isContainerEmpty',
+      })
     }
   }
 </script>

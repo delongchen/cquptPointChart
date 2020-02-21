@@ -5,10 +5,11 @@
           v-for="(v, k) in getContainer"
           :key="k"
           button
-          @click="al(v)"
-      >{{ v['data'] }}</b-list-group-item>
+          @click="setCurrent(k)"
+      >{{ k }}: {{ v.length }}</b-list-group-item>
     </b-list-group>
     <b-button @click="getOne">get</b-button>
+    <b-button @click="clean">clean</b-button>
   </b-container>
 </template>
 
@@ -23,10 +24,14 @@
     },
     methods: {
       getOne() {
-        this.$store.dispatch('parseRoomInfo', './test.json')
+        this.$store.dispatch('parseRoomInfo', './data.json')
       },
-      al(i) {
-        this.$store.dispatch('alertError', i)
+      setCurrent(k) {
+        this.$store.commit('setCurrent', k);
+        this.$router.push("chart");
+      },
+      clean() {
+        this.$store.commit('cleanContainer')
       }
     }
   }
