@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-for="(v, k) in o" :key="k">{{ v }}</p>
+    <p v-for="(v, k) in o.rooms" :key="k">{{ v }}</p>
   </div>
 </template>
 

@@ -6,7 +6,7 @@
           :key="k"
           button
           @click="setCurrent(k)"
-      >{{ k }}: {{ v.length }}</b-list-group-item>
+      >{{ k }}: {{ v.title }}</b-list-group-item>
     </b-list-group>
     <b-button @click="getOne">get</b-button>
     <b-button @click="clean">clean</b-button>
