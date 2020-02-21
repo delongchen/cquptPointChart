@@ -24,7 +24,7 @@
     },
     methods: {
       getOne() {
-        this.$store.dispatch('parseRoomInfo', './data.json')
+        this.$store.dispatch('parseRoomInfo', './new_data.json')
       },
       setCurrent(k) {
         this.$store.commit('setCurrent', k);
