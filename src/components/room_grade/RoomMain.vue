@@ -17,8 +17,8 @@
               :disabled="!isEmpty"
               triggers="hover"
               placement="bottom">
-            <template v-slot:title>Popover Title</template>
-            I am popover <b>component</b> content!
+            <template v-slot:title>Nothing to show!</template>
+            move to <b>Form</b> choose one
           </b-popover>
         </b-nav>
       </b-card-header>
