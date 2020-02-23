@@ -56,27 +56,29 @@ function Room(list, name) {
   this.infos = roomInfosOf(list);
 }
 
-export function addMoreInfosOf(serializer) {
+export function addMoreInfosOf(who) {
   let
-    rooms = serializer.rooms,
+    ret = [],
+    tmp = who.rooms,
     max_x = -1,
     max_y = -1,
     now_x,
     now_y;
 
-  for (let roomName in rooms) {
-    if (Object.prototype.hasOwnProperty.call(rooms, roomName)) {
-      let room = new Room(rooms[roomName], roomName);
+  for (let roomName in tmp) {
+    if (Object.prototype.hasOwnProperty.call(tmp, roomName)) {
+      let room = new Room(tmp[roomName], roomName);
 
       if ((now_x = room.infos.vx) > max_x) max_x = now_x;
       if ((now_y = room.infos.vy) > max_y) max_y = now_y;
 
-      rooms[roomName] = room;
+      ret.push(room)
     }
   }
 
-  serializer.max = {
+  who.rooms = ret;
+  who.max = {
     x: max_x,
     y: max_y
-  }
+  };
 }

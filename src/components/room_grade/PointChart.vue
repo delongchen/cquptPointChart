@@ -1,29 +1,27 @@
 <template>
   <div id="chartContainer">
-    <svg
-        :width="containerWidth"
-        :height="defaultHeight">
+    <!-- chart -->
+    <svg :width="containerWidth" :height="defaultHeight">
+      <!-- main group -->
       <g :transform="transformOf(m.left, m.top)">
+        <!-- x axis -->
         <g
             id="axis_x"
             class="axis axis--x"
             :transform="transformOf(0, chartHeight)"
-        >
-          <text
-              style="text-anchor: end; fill: #000"
-              dy=".71em"
-              :x="chartWidth"
-              y="26">
-            i am x
-          </text>
-        </g>
-        <g class="axis axis--y" id="axis_y">
-          <text
-              style="text-anchor: start; fill: #000"
-              x="-16"
-              y="-16"
-              dy=".71em"
-          >i am y</text>
+        ></g>
+        <!-- y axis -->
+        <g class="axis axis--y" id="axis_y"></g>
+        <!-- points group -->
+        <g id="points_group">
+          <circle
+            v-for="(v, k) in o.rooms"
+            :key="k"
+            :r="v.list.length"
+            :fill="v.infos.grade"
+            :cx="sx(v.infos.vx)"
+            :cy="sy(v.infos.vy)"
+          ></circle>
         </g>
       </g>
     </svg>
@@ -46,8 +44,9 @@
         bottom: 40,
         left: 22
       },
-      defaultHeight: 600,
-      containerWidth: null
+      defaultHeight: 700,
+      containerWidth: 1000
+      //document.getElementById('chartContainer').offsetWidth
     }),
     computed: {
       ...mapGetters({
@@ -58,23 +57,37 @@
       },
       chartHeight() {
         return this.defaultHeight - this.m.top - this.m.bottom;
+      },
+      sx() {
+        return scaleLinear().domain([0, this.o.max.x]).range([0, this.chartWidth]);
+      },
+      sy() {
+        return scaleLinear().rangeRound([0, this.chartHeight]).domain([this.o.max.y, 0]);
       }
     },
     methods: {
+      transformOf,
       mount_axis() {
-        select("#axis_x").call(
-          axisBottom(scaleLinear()
-            .domain([0, this.o.max.x])
-            .range([0, this.chartWidth])
-          ));
+        select("#axis_x")
+          .call(axisBottom(this.sx))
+          .append('text')
+          .attr('x', this.chartWidth)
+          .attr('y', 26)
+          .attr('dy', '.71em')
+          .style('text-anchor', 'end')
+          .style('fill', '#000')
+          .text('寝室序号');
 
-        select("#axis_y").call(
-          axisLeft(scaleLinear()
-            .rangeRound([0, this.chartHeight])
-            .domain([this.o.max.y, 0])
-          ));
-      },
-      transformOf
+        select("#axis_y")
+          .call(axisLeft(this.sy))
+          .append('text')
+          .attr('y', -16)
+          .attr('x', -16)
+          .attr('dy', '.71em')
+          .style('text-anchor', 'start')
+          .style('fill', '#000')
+          .text('平均分');
+      }
     },
     mounted() {
       this.containerWidth = document.getElementById('chartContainer').offsetWidth;
