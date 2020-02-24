@@ -16,12 +16,30 @@
         <g id="points_group">
           <circle
             v-for="(v, k) in o.rooms"
+            class="points"
             :key="k"
-            :r="v.list.length"
-            :fill="v.infos.grade"
+            :id="`popover-${k}`"
+            :r="v.infos.r"
+            :fill="v.infos.color"
             :cx="sx(v.infos.vx)"
             :cy="sy(v.infos.vy)"
-          ></circle>
+            @mouseover="event => {event.target.style.fill = v.infos.grade}"
+            @mouseout="event => {event.target.style.fill = v.infos.color}"
+          >
+            <b-popover
+                placement="auto"
+                no-fade="true"
+                :target="`popover-${k}`"
+                triggers="hover">
+              <template v-slot:title>{{ v.name }}</template>
+                <b-button
+                    v-for="(stu, sk) in v.list"
+                    :key="sk"
+                    block
+                    :variant="stu.gua ? 'outline-danger' : 'outline-success'"
+                >{{ stu['name_stu'] }}</b-button>
+            </b-popover>
+          </circle>
         </g>
       </g>
     </svg>
@@ -45,8 +63,7 @@
         left: 22
       },
       defaultHeight: 700,
-      containerWidth: 1000
-      //document.getElementById('chartContainer').offsetWidth
+      containerWidth: 1000,
     }),
     computed: {
       ...mapGetters({

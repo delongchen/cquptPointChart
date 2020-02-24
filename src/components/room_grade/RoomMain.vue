@@ -4,6 +4,7 @@
 
       <b-card-header header-tag="nav">
         <b-nav card-header tabs fill>
+          <b-nav-item to="/form" exact exact-active-class="active">Form</b-nav-item>
           <b-nav-item to="/" exact exact-active-class="active">Selector</b-nav-item>
           <b-nav-item
               id="chart_button"
@@ -18,7 +19,7 @@
               triggers="hover"
               placement="bottom">
             <template v-slot:title>Nothing to show!</template>
-            move to <b>Form</b> choose one
+            move to <b>Selector</b> choose one
           </b-popover>
         </b-nav>
       </b-card-header>

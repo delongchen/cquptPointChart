@@ -1,50 +1,58 @@
-const color_mapping = {
-  red: 'red',
-  yellow: 'yellow',
-  blue: 'blue',
-  green: 'green'
+export const color_mapping = {
+  red: '#ff3274',
+  yellow: '#ffca3b',
+  blue: '#42d9e5',
+  green: '#8bdc54'
 };
 
-const qualified = 60;
+const settings = {
+  qualified : 60,
+  defaultR : 2,
+  yWeight: 0.7,
+  xWeight: 0.3
+};
 
 function grade_rule(size, q_ed, vy) {
   switch (q_ed) {
-    case 0: return color_mapping.red;
-    case size: return color_mapping.green;
-    default: return color_mapping[vy >= 60 ? 'blue' : 'yellow']
+    case 0: return 'red';
+    case size: return 'green';
+    default: return vy >= 60 ? 'blue' : 'yellow'
   }
 }
+
+const weightOf = (x, y) =>  (settings.yWeight * y) + (settings.xWeight * x);
 
 function roomInfosOf(list) {
   const roomSize = list.length;
 
   let
     qualifiedNum = roomSize,
+    stu,
+    grade,
     vx = 0,
     vy = 0,
-    //max_x = -1,
-    //max_y  = -1,
     now_x,
     now_y;
 
-  //一趟循环尽可能搞定很多事
-  for (let stu of list) {
+  for (let i = 0; i < roomSize; i++) {
+    stu = list[i];
     now_y = stu['vy'];
     now_x = stu['vx'];
-    //获取最大值
-    //if (now_x > max_x) max_x = now_x;
-    //if (now_y > max_y) max_y = now_y;
-    //及格人数counter
-    if (now_y < qualified) qualifiedNum -= 1;
-    //累加
+
+    if ((stu.gua = (weightOf(now_x, now_y) < settings.qualified))) qualifiedNum -= 1;
+    //counter
     vx += now_x;
     vy += now_y;
   }
 
   vy = Math.floor(vy / roomSize);
+  grade = grade_rule(roomSize, qualifiedNum, vy);
 
+  //对应room.infos
   return {
-    grade: grade_rule(roomSize, qualifiedNum, vy),
+    grade,//等级 即颜色
+    color: color_mapping[grade],
+    r: Math.sqrt(Math.pow(roomSize, 3)) + settings.defaultR,// 圆点半径
     vx: Math.floor(vx / roomSize),
     vy
   }

@@ -5,6 +5,7 @@ Vue.use(VueRouter);
 
 import RoomMain from "@/components/room_grade/RoomMain";
 import RoomChart from "@/components/room_grade/RoomChart";
+import RoomForm from "@/components/room_grade/RoomForm";
 import RoomSelector from "@/components/room_grade/RoomSelector";
 
 const routes = [
@@ -13,6 +14,7 @@ const routes = [
     component: RoomMain,
     children: [
       {path: '', component: RoomSelector},
+      {path: 'form', component: RoomForm},
       {path: 'chart', component: RoomChart}
     ]
   },
