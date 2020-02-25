@@ -8,7 +8,6 @@
           @click="setCurrent(k)"
       >{{ k }}: {{ v.title }}</b-list-group-item>
     </b-list-group>
-    <b-button @click="getOne">get</b-button>
     <b-button @click="clean">clean</b-button>
   </b-container>
 </template>
@@ -23,9 +22,6 @@
       ])
     },
     methods: {
-      getOne() {
-        this.$store.dispatch('parseRoomInfo', './new_data.json')
-      },
       setCurrent(k) {
         this.$store.commit('setCurrent', k);
         this.$router.push("chart");

@@ -13,8 +13,8 @@ const routes = [
     path: '/',
     component: RoomMain,
     children: [
-      {path: '', component: RoomSelector},
-      {path: 'form', component: RoomForm},
+      {path: '', component: RoomForm},
+      {path: 'selector', component: RoomSelector},
       {path: 'chart', component: RoomChart}
     ]
   },

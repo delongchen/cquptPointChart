@@ -52,13 +52,13 @@
             :fill="v.infos.color"
             :cx="sx(v.infos.vx)"
             :cy="sy(v.infos.vy)"
-            @mouseover="event => {event.target.style.fill = v.infos.grade}"
-            @mouseout="event => {event.target.style.fill = v.infos.color}"
+            @mouseleave="event => {event.target.style.fill = v.infos.color}"
+            @mouseenter="event => {event.target.style.fill = v.infos.grade}"
             v-show="grade_settings[v.infos.grade].show"
           >
             <b-popover
                 placement="auto"
-                no-fade="true"
+                no-fade
                 :target="`popover-${k}`"
                 triggers="hover">
               <template v-slot:title>{{ v.name }}</template>
