@@ -4,14 +4,14 @@
 
       <b-card-header header-tag="nav">
         <b-nav card-header tabs fill>
-          <b-nav-item to="/form" exact exact-active-class="active">Form</b-nav-item>
-          <b-nav-item to="/" exact exact-active-class="active">Selector</b-nav-item>
+          <b-nav-item to="/form" exact exact-active-class="active"><BIconPencil /> Form</b-nav-item>
+          <b-nav-item to="/" exact exact-active-class="active"><BIconListUl /> Selector</b-nav-item>
           <b-nav-item
               id="chart_button"
               to="/chart"
               exact
               exact-active-class="active"
-              :disabled="isEmpty">Chart</b-nav-item>
+              :disabled="isEmpty"><BIconGraphUp /> Chart</b-nav-item>
 
           <b-popover
               target="chart_button"
@@ -34,10 +34,14 @@
 
 <script>
   import {mapGetters} from 'vuex'
+  import {BIconListUl, BIconGraphUp, BIconPencil} from 'bootstrap-vue'
 
   export default {
     name: "RoomMain",
     components: {
+      BIconListUl,
+      BIconGraphUp,
+      BIconPencil
     },
     data: () => ({
     }),

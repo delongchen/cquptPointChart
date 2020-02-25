@@ -1,4 +1,4 @@
-export const color_mapping = {
+const color_mapping = {
   red: '#ff3274',
   yellow: '#ffca3b',
   blue: '#42d9e5',
@@ -68,6 +68,12 @@ export function addMoreInfosOf(who) {
   let
     ret = [],
     tmp = who.rooms,
+    gradeCounter = {
+      red: 0,
+      yellow: 0,
+      blue: 0,
+      green: 0
+    },
     max_x = -1,
     max_y = -1,
     now_x,
@@ -80,11 +86,14 @@ export function addMoreInfosOf(who) {
       if ((now_x = room.infos.vx) > max_x) max_x = now_x;
       if ((now_y = room.infos.vy) > max_y) max_y = now_y;
 
+      gradeCounter[room.infos.grade] += 1;
+
       ret.push(room)
     }
   }
 
   who.rooms = ret;
+  who.gradeCounter = gradeCounter;
   who.max = {
     x: max_x,
     y: max_y

@@ -1,5 +1,34 @@
 <template>
   <div id="chartContainer">
+    <b-button-toolbar>
+      <b-button-group class="m-2">
+        <b-button
+            v-for="(v, k) in grade_settings"
+            :key="k"
+            :variant="(v.show ? '' : 'outline-') + v.variant"
+            @click="v.show = !v.show"
+        >{{o.gradeCounter[k]}}</b-button>
+      </b-button-group>
+
+      <b-button-group class="m-2">
+        <b-button variant="primary" @click="setAllPoints(true, '')">Reset</b-button>
+      </b-button-group>
+
+      <b-button-group class="m-2">
+        <b-button id="ob"> Only ></b-button>
+        <b-popover target="ob" triggers="hover">
+          <b-button-group>
+            <b-button
+                v-for="(v, k) in grade_settings"
+                :key="k"
+                :variant="v.variant"
+                @click="only(k)"
+            ></b-button>
+          </b-button-group>
+        </b-popover>
+      </b-button-group>
+    </b-button-toolbar>
+
     <!-- chart -->
     <svg :width="containerWidth" :height="defaultHeight">
       <!-- main group -->
@@ -25,6 +54,7 @@
             :cy="sy(v.infos.vy)"
             @mouseover="event => {event.target.style.fill = v.infos.grade}"
             @mouseout="event => {event.target.style.fill = v.infos.color}"
+            v-show="grade_settings[v.infos.grade].show"
           >
             <b-popover
                 placement="auto"
@@ -49,6 +79,7 @@
 <script>
   import {transformOf} from "@/utils/d3_helper";
   import {mapGetters} from 'vuex'
+
   import {select} from 'd3-selection'
   import {axisBottom, axisLeft} from 'd3-axis'
   import {scaleLinear} from 'd3-scale'
@@ -64,6 +95,12 @@
       },
       defaultHeight: 700,
       containerWidth: 1000,
+      grade_settings: {
+        red: {variant: 'danger', show: true},
+        yellow: {variant: 'warning', show: true},
+        blue: {variant: 'info', show: true},
+        green: {variant: 'success', show: true}
+      },
     }),
     computed: {
       ...mapGetters({
@@ -104,6 +141,25 @@
           .style('text-anchor', 'start')
           .style('fill', '#000')
           .text('平均分');
+      },
+      setAllPoints(status) {
+        for (let i in this.grade_settings)
+          if (
+            Object.prototype.hasOwnProperty.call(this.grade_settings, i)
+            &&
+            this.grade_settings[i].show !== status
+          )
+            this.grade_settings[i].show = status
+      },
+      only(tag) {
+        for (let i in this.grade_settings)
+          if (
+            Object.prototype.hasOwnProperty.call(this.grade_settings, i)
+            &&
+            i !== tag && this.grade_settings[i].show
+          ) this.grade_settings[i].show = false;
+
+        if (!this.grade_settings[tag].show) this.grade_settings[tag].show = true;
       }
     },
     mounted() {
