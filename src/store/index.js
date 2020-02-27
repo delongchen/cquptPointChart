@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 import {roomStore} from "@/store/modules/room_store";
 import {errors} from "@/store/modules/errors";
+import {axisStore} from "@/store/modules/axis_store";
 
 export const store = new Vuex.Store({
   state: {
@@ -13,6 +14,7 @@ export const store = new Vuex.Store({
   },
   modules: {
     roomStore,
-    errors
+    errors,
+    axisStore
   }
 });

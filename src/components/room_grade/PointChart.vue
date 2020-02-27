@@ -38,9 +38,27 @@
             id="axis_x"
             class="axis axis--x"
             :transform="transformOf(0, chartHeight)"
-        ></g>
+        >
+          <text
+              :x="chartWidth"
+              y="26"
+              dy=".71em"
+              style="fill: #2c3e50; text-anchor: end"
+          >{{ o.title }} x</text>
+        </g>
+
+
         <!-- y axis -->
-        <g class="axis axis--y" id="axis_y"></g>
+        <g class="axis axis--y" id="axis_y">
+          <text
+              x="-16"
+              y="-16"
+              dy=".71em"
+              style="text-anchor: start; fill: #2c3e50"
+          >{{ o.title }}</text>
+        </g>
+
+
         <!-- points group -->
         <g id="points_group">
           <circle
@@ -73,6 +91,7 @@
         </g>
       </g>
     </svg>
+    <chart-tool-bar />
   </div>
 </template>
 
@@ -82,19 +101,15 @@
 
   import {select} from 'd3-selection'
   import {axisBottom, axisLeft} from 'd3-axis'
-  import {scaleLinear} from 'd3-scale'
+
+  import ChartToolBar from "@/components/room_grade/ChartToolBar";
 
   export default {
     name: "PointChart",
+    components: {
+      ChartToolBar
+    },
     data: () => ({
-      m: {
-        top: 80,
-        right: 20,
-        bottom: 40,
-        left: 22
-      },
-      defaultHeight: 700,
-      containerWidth: 1000,
       grade_settings: {
         red: {variant: 'danger', show: true},
         yellow: {variant: 'warning', show: true},
@@ -104,43 +119,21 @@
     }),
     computed: {
       ...mapGetters({
-        o: 'getCurrentObj'
+        o: 'getCurrentObj',
+        defaultHeight: 'getPageHeight',
+        containerWidth: 'getPageWidth',
+        chartHeight: 'getChartHeight',
+        chartWidth: 'getChartWidth',
+        m: 'getMargin',
+        sx: 'axis_x',
+        sy: 'axis_y'
       }),
-      chartWidth() {
-        return this.containerWidth - this.m.left - this.m.right;
-      },
-      chartHeight() {
-        return this.defaultHeight - this.m.top - this.m.bottom;
-      },
-      sx() {
-        return scaleLinear().domain([0, this.o.max.x]).range([0, this.chartWidth]);
-      },
-      sy() {
-        return scaleLinear().rangeRound([0, this.chartHeight]).domain([this.o.max.y, 0]);
-      }
     },
     methods: {
       transformOf,
       mount_axis() {
-        select("#axis_x")
-          .call(axisBottom(this.sx))
-          .append('text')
-          .attr('x', this.chartWidth)
-          .attr('y', 26)
-          .attr('dy', '.71em')
-          .style('text-anchor', 'end')
-          .style('fill', '#000')
-          .text('寝室序号');
-
-        select("#axis_y")
-          .call(axisLeft(this.sy))
-          .append('text')
-          .attr('y', -16)
-          .attr('x', -16)
-          .attr('dy', '.71em')
-          .style('text-anchor', 'start')
-          .style('fill', '#000')
-          .text('平均分');
+        select("#axis_x").call(axisBottom(this.sx));
+        select("#axis_y").call(axisLeft(this.sy));
       },
       setAllPoints(status) {
         for (let i in this.grade_settings)
@@ -163,7 +156,8 @@
       }
     },
     mounted() {
-      this.containerWidth = document.getElementById('chartContainer').offsetWidth;
+      this.$store.commit('setPageWidth', document.getElementById('chartContainer').offsetWidth);
+      //this.containerWidth = document.getElementById('chartContainer').offsetWidth;
       this.mount_axis();
     }
   }
