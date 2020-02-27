@@ -1,7 +1,7 @@
 <template>
   <div>
-    <p>Form</p>
     <b-button @click="getOne">GET</b-button>
+
   </div>
 </template>
 
@@ -14,9 +14,12 @@
       }
     },
     methods: {
-      async getOne() {
-        await this.$store.dispatch('parseRoomInfo', './new_data.json');
-        await this.$router.push('chart')
+      getOne() {
+        this.$store
+          .dispatch('parseRoomInfo', './new_data.json')
+          .then(() => {
+            this.$router.push('chart')
+        })
       }
     }
   }

@@ -14,7 +14,7 @@
               :disabled="isEmpty"
           >
             <BIconListUl />
-            Selector
+            History
             <b-popover
                 target="se_bt"
                 :disabled="!isEmpty"

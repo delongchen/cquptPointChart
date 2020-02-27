@@ -20,15 +20,19 @@ export const roomStore = {
     }
   },
   actions: {
-    async parseRoomInfo({commit, dispatch, state}, path) {
-      await axios.get(path)
-        .then(response => {
-          commit('addRoomInfo', helper.transRoomInfo(response.data));
-          commit('setCurrent', state.infoContainer.length - 1);
-        })
-        .catch(e => {
-          dispatch('alertError', e)
-        });
+    parseRoomInfo({commit, dispatch, state}, path) {
+      return new Promise((resolve) => {
+        axios
+          .get(path)
+          .then(response => {
+            commit('addRoomInfo', helper.transRoomInfo(response.data));
+            commit('setCurrent', state.infoContainer.length - 1);
+            resolve()
+          })
+          .catch(e => {
+            dispatch('alertError', e)
+          });
+      })
     }
   },
   getters: {
@@ -40,6 +44,9 @@ export const roomStore = {
     },
     getCurrentObj(state) {
       return state.infoContainer[state.current];
+    },
+    getCurrentId(state) {
+      return state.current;
     }
   },
 };

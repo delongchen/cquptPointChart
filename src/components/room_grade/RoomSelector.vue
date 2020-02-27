@@ -6,6 +6,7 @@
           :key="k"
           button
           @click="setCurrent(k)"
+          :active="getCurrentId === k"
       >{{ k }}: {{ v.title }}</b-list-group-item>
     </b-list-group>
     <b-button @click="clean">clean</b-button>
@@ -18,16 +19,20 @@
     name: "RoomSelector",
     computed: {
       ...mapGetters([
-        'getContainer'
+        'getContainer',
+        'getCurrentId'
       ])
     },
     methods: {
       setCurrent(k) {
-        this.$store.commit('setCurrent', k);
+        if (k !== this.getCurrentId) {
+          this.$store.commit('setCurrent', k);
+        }
         this.$router.push("chart");
       },
       clean() {
-        this.$store.commit('cleanContainer')
+        this.$store.commit('cleanContainer');
+        this.$router.push("/")
       }
     }
   }
