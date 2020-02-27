@@ -97,10 +97,7 @@
 
 <script>
   import {transformOf} from "@/utils/d3_helper";
-  import {mapGetters} from 'vuex'
-
-  import {select} from 'd3-selection'
-  import {axisBottom, axisLeft} from 'd3-axis'
+  import {mapGetters, mapActions} from 'vuex'
 
   import ChartToolBar from "@/components/room_grade/ChartToolBar";
 
@@ -125,16 +122,15 @@
         chartHeight: 'getChartHeight',
         chartWidth: 'getChartWidth',
         m: 'getMargin',
-        sx: 'axis_x',
-        sy: 'axis_y'
+        sx: 'scale_x',
+        sy: 'scale_y'
       }),
     },
     methods: {
       transformOf,
-      mount_axis() {
-        select("#axis_x").call(axisBottom(this.sx));
-        select("#axis_y").call(axisLeft(this.sy));
-      },
+      ...mapActions([
+        'mount_axis',
+      ]),
       setAllPoints(status) {
         for (let i in this.grade_settings)
           if (
@@ -157,7 +153,6 @@
     },
     mounted() {
       this.$store.commit('setPageWidth', document.getElementById('chartContainer').offsetWidth);
-      //this.containerWidth = document.getElementById('chartContainer').offsetWidth;
       this.mount_axis();
     }
   }

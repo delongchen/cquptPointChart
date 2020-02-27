@@ -1,4 +1,6 @@
 import {scaleLinear} from "d3-scale";
+import {select} from 'd3-selection'
+import {axisBottom, axisLeft} from "d3-axis";
 
 export const axisStore = {
   state: {
@@ -16,15 +18,41 @@ export const axisStore = {
   mutations: {
     setPageWidth(state, n) {
       state.pageWidth = n
+    },
+    setX(state, f) {
+      state.max_x = f
+    },
+    setY(state, f) {
+      state.max_y = f
+    }
+  },
+  actions: {
+    mount_axis_x({getters}) {
+      select("#axis_x").call(axisBottom(getters.scale_x));
+    },
+    mount_axis_y({getters}) {
+      select("axis_y").call(axisLeft(getters.scale_y))
+    },
+    mount_axis({dispatch}) {
+      dispatch('mount_axis_x');
+      dispatch('mount_axis_y');
+    },
+    setAxisX({commit, dispatch}, f) {
+      commit('setX', f);
+      dispatch('mount_axis_x');
+    },
+    setAxisY({commit, dispatch}, f) {
+      commit('setY', f);
+      dispatch('mount_axis_y')
     }
   },
   getters: {
-    axis_x(state, getters) {
+    scale_x(state, getters) {
       return scaleLinear()
         .domain([0, state.max_x(getters.getCurrentObj.max.x)])
         .range([0, getters.getChartWidth])
     },
-    axis_y(state, getters) {
+    scale_y(state, getters) {
       return scaleLinear()
         .domain([state.max_y(getters.getCurrentObj.max.y), 0])
         .rangeRound([0, getters.getChartHeight])
