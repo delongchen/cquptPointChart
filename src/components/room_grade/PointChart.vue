@@ -106,14 +106,16 @@
     components: {
       ChartToolBar
     },
-    data: () => ({
-      grade_settings: {
-        red: {variant: 'danger', show: true},
-        yellow: {variant: 'warning', show: true},
-        blue: {variant: 'info', show: true},
-        green: {variant: 'success', show: true}
-      },
-    }),
+    data() {
+      return {
+        grade_settings: {
+          red: {variant: 'danger', show: true},
+          yellow: {variant: 'warning', show: true},
+          blue: {variant: 'info', show: true},
+          green: {variant: 'success', show: true}
+        }
+      }
+    },
     computed: {
       ...mapGetters({
         o: 'getCurrentObj',
@@ -129,7 +131,8 @@
     methods: {
       transformOf,
       ...mapActions([
-        'mount_axis',
+        'setNowWidth',
+        'mount_axis_y'
       ]),
       setAllPoints(status) {
         for (let i in this.grade_settings)
@@ -152,8 +155,8 @@
       }
     },
     mounted() {
-      this.$store.commit('setPageWidth', document.getElementById('chartContainer').offsetWidth);
-      this.mount_axis();
+      this.setNowWidth(document.getElementById('chartContainer').offsetWidth)
+      this.mount_axis_y();
     }
   }
 </script>

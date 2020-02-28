@@ -31,11 +31,7 @@ export const axisStore = {
       select("#axis_x").call(axisBottom(getters.scale_x));
     },
     mount_axis_y({getters}) {
-      select("axis_y").call(axisLeft(getters.scale_y))
-    },
-    mount_axis({dispatch}) {
-      dispatch('mount_axis_x');
-      dispatch('mount_axis_y');
+      select("#axis_y").call(axisLeft(getters.scale_y))
     },
     setAxisX({commit, dispatch}, f) {
       commit('setX', f);
@@ -44,6 +40,10 @@ export const axisStore = {
     setAxisY({commit, dispatch}, f) {
       commit('setY', f);
       dispatch('mount_axis_y')
+    },
+    setNowWidth({commit, dispatch}, n) {
+      commit('setPageWidth', n);
+      dispatch('mount_axis_x')
     }
   },
   getters: {
