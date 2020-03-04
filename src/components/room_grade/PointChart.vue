@@ -72,14 +72,12 @@
             :cy="sy(fy(v.infos))"
             @mouseleave="event => {
               event.target.style.fill = v.infos.color;
-              lines.show = false;
+              line_setting.show = false;
             }"
             @mouseenter="event => {
               event.target.style.fill = v.infos.grade;
-              lines.show = true;
-              lines.r = v.infos.r;
-              lines.x = sx(fx(v.infos));
-              lines.y = sy(fy(v.infos));
+              line_setting.show = true;
+              mount_lines(v.infos);
             }"
             v-show="grade_settings[v.infos.grade].show"
           >
@@ -108,22 +106,36 @@
                 :y1="lines.y"
                 :x2="lines.x - lines.r"
                 :y2="lines.y"
-                :stroke-width="lines.width"
-                :stroke="lines.color"
-                v-show="lines.show"
+                :stroke-width="line_setting.width"
+                :stroke="line_setting.color"
+                v-show="line_setting.show"
             />
+            <text
+                :x="-m.left"
+                :y="lines.y"
+                v-show="line_setting.show"
+            >{{ lines.ty }}</text>
           </g>
 
-          <line
-              id="line_y"
-              :x1="lines.x"
-              :y1="chartHeight"
-              :x2="lines.x"
-              :y2="lines.y + lines.r"
-              :stroke-width="lines.width"
-              :stroke="lines.color"
-              v-show="lines.show"
-          />
+          <g>
+            <line
+                id="line_y"
+                :x1="lines.x"
+                :y1="chartHeight"
+                :x2="lines.x"
+                :y2="lines.y + lines.r"
+                :stroke-width="line_setting.width"
+                :stroke="line_setting.color"
+                v-show="line_setting.show"
+            />
+            <text
+                :x="lines.x"
+                :y="chartHeight + m.left"
+                v-show="line_setting.show"
+            >
+              {{ lines.tx }}
+            </text>
+          </g>
         </g>
       </g>
     </svg>
@@ -150,13 +162,17 @@
           blue: {variant: 'info', show: true},
           green: {variant: 'success', show: true}
         },
-        lines: {
+        line_setting: {
           show: false,
+          color: "#000",
+          width: "1px"
+        },
+        lines: {
           x: 0,
           y: 0,
           r: 0,
-          color: "#000",
-          width: "1px"
+          tx: 0,
+          ty: 0
         }
       }
     },
@@ -198,6 +214,18 @@
           ) this.grade_settings[i].show = false;
 
         if (!this.grade_settings[tag].show) this.grade_settings[tag].show = true;
+      },
+      mount_lines(info) {
+        let tx = this.fx(info),
+          ty = this.fy(info),
+          x = this.sx(tx),
+          y = this.sy(ty);
+
+        this.lines.r = info.r;
+        this.lines.x = x;
+        this.lines.y = y;
+        this.lines.tx = tx;
+        this.lines.ty = ty;
       }
     },
     mounted() {
