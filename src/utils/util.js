@@ -31,5 +31,11 @@ export const helper = {
     addMoreInfosOf(ret);
 
     return ret;
+  },
+  near_max(num) {
+    return (Math.floor(num / 10) + 1) * 10
+  },
+  near_min(num) {
+    return (Math.ceil(num / 10) - 1) * 10
   }
 };

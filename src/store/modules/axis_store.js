@@ -1,6 +1,7 @@
 import {scaleLinear} from "d3-scale";
 import {select} from 'd3-selection'
 import {axisBottom, axisLeft} from "d3-axis";
+import {helper} from "@/utils/util";
 
 export const axisStore = {
   state: {
@@ -49,12 +50,12 @@ export const axisStore = {
   getters: {
     scale_x(state, getters) {
       return scaleLinear()
-        .domain([0, state.max_x(getters.getCurrentObj.max)])
+        .domain([0, helper.near_max(state.max_x(getters.getCurrentObj.max))])
         .range([0, getters.getChartWidth])
     },
     scale_y(state, getters) {
       return scaleLinear()
-        .domain([state.max_y(getters.getCurrentObj.max), 0])
+        .domain([helper.near_max(state.max_y(getters.getCurrentObj.max)), 0])
         .rangeRound([0, getters.getChartHeight])
     },
     fx(state) {
