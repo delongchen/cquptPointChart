@@ -95,7 +95,7 @@ export function addMoreInfosOf(who) {
   who.rooms = ret;
   who.gradeCounter = gradeCounter;
   who.max = {
-    x: max_x,
-    y: max_y
+    vx: max_x,
+    vy: max_y
   };
 }

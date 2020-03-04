@@ -4,15 +4,15 @@ import {axisBottom, axisLeft} from "d3-axis";
 
 export const axisStore = {
   state: {
-    max_x: x => x,
-    max_y: y => y,
+    max_x: o => o.vx,
+    max_y: o => o.vy,
     defaultHeight: 700,
     pageWidth: 1000,
     m: {
       top: 80,
       right: 20,
       bottom: 40,
-      left: 22
+      left: 26
     }
   },
   mutations: {
@@ -49,13 +49,19 @@ export const axisStore = {
   getters: {
     scale_x(state, getters) {
       return scaleLinear()
-        .domain([0, state.max_x(getters.getCurrentObj.max.x)])
+        .domain([0, state.max_x(getters.getCurrentObj.max)])
         .range([0, getters.getChartWidth])
     },
     scale_y(state, getters) {
       return scaleLinear()
-        .domain([state.max_y(getters.getCurrentObj.max.y), 0])
+        .domain([state.max_y(getters.getCurrentObj.max), 0])
         .rangeRound([0, getters.getChartHeight])
+    },
+    fx(state) {
+      return state.max_x;
+    },
+    fy(state) {
+      return state.max_y;
     },
     getChartHeight(state) {
       return state.defaultHeight - state.m.bottom - state.m.top;

@@ -1,7 +1,6 @@
 <template>
   <div>
     <b-button @click="getOne">GET</b-button>
-
   </div>
 </template>
 

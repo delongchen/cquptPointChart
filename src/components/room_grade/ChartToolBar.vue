@@ -1,15 +1,29 @@
 <template>
   <b-container>
-    <b-button @click="changeAxis">平均成绩-综合素质</b-button>
+    <b-button
+        v-for="(v, k) in bts"
+        :key="k"
+        @click="changeAxis(v)"
+    >
+      {{ v.title }}
+    </b-button>
   </b-container>
 </template>
 
 <script>
+  import {chartToolSet} from "@/chart/toolbar";
+
   export default {
     name: "ChartToolBar",
+    data() {
+      return {
+        bts: chartToolSet
+      }
+    },
     methods: {
-      changeAxis() {
-        this.$store.dispatch('setAxisX', x => 2 * x)
+      changeAxis(o) {
+        this.$store.dispatch('setAxisX', o.x);
+        this.$store.dispatch('setAxisY', o.y);
       }
     }
   }

@@ -68,8 +68,8 @@
             :id="`popover-${k}`"
             :r="v.infos.r"
             :fill="v.infos.color"
-            :cx="sx(v.infos.vx)"
-            :cy="sy(v.infos.vy)"
+            :cx="sx(fx(v.infos))"
+            :cy="sy(fy(v.infos))"
             @mouseleave="event => {event.target.style.fill = v.infos.color}"
             @mouseenter="event => {event.target.style.fill = v.infos.grade}"
             v-show="grade_settings[v.infos.grade].show"
@@ -125,7 +125,9 @@
         chartWidth: 'getChartWidth',
         m: 'getMargin',
         sx: 'scale_x',
-        sy: 'scale_y'
+        sy: 'scale_y',
+        fx: 'fx',
+        fy: 'fy'
       }),
     },
     methods: {
@@ -155,7 +157,7 @@
       }
     },
     mounted() {
-      this.setNowWidth(document.getElementById('chartContainer').offsetWidth)
+      this.setNowWidth(document.getElementById('chartContainer').offsetWidth);
       this.mount_axis_y();
     }
   }
