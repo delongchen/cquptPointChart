@@ -70,8 +70,17 @@
             :fill="v.infos.color"
             :cx="sx(fx(v.infos))"
             :cy="sy(fy(v.infos))"
-            @mouseleave="event => {event.target.style.fill = v.infos.color}"
-            @mouseenter="event => {event.target.style.fill = v.infos.grade}"
+            @mouseleave="event => {
+              event.target.style.fill = v.infos.color;
+              lines.show = false;
+            }"
+            @mouseenter="event => {
+              event.target.style.fill = v.infos.grade;
+              lines.show = true;
+              lines.r = v.infos.r;
+              lines.x = sx(fx(v.infos));
+              lines.y = sy(fy(v.infos));
+            }"
             v-show="grade_settings[v.infos.grade].show"
           >
             <b-popover
@@ -88,6 +97,33 @@
                 >{{ stu['name_stu'] }}</b-button>
             </b-popover>
           </circle>
+        </g>
+
+        <!-- lines -->
+        <g>
+          <g>
+            <line
+                id="line_x"
+                x1="0"
+                :y1="lines.y"
+                :x2="lines.x - lines.r"
+                :y2="lines.y"
+                :stroke-width="lines.width"
+                :stroke="lines.color"
+                v-show="lines.show"
+            />
+          </g>
+
+          <line
+              id="line_y"
+              :x1="lines.x"
+              :y1="chartHeight"
+              :x2="lines.x"
+              :y2="lines.y + lines.r"
+              :stroke-width="lines.width"
+              :stroke="lines.color"
+              v-show="lines.show"
+          />
         </g>
       </g>
     </svg>
@@ -113,6 +149,14 @@
           yellow: {variant: 'warning', show: true},
           blue: {variant: 'info', show: true},
           green: {variant: 'success', show: true}
+        },
+        lines: {
+          show: false,
+          x: 0,
+          y: 0,
+          r: 0,
+          color: "#000",
+          width: "1px"
         }
       }
     },
