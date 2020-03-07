@@ -5,7 +5,13 @@ import axios from 'axios'
 export const roomStore = {
   state: {
     infoContainer: [],
-    current: null
+    current: null,
+    grade_settings: {
+      red: {variant: 'danger', show: true},
+      yellow: {variant: 'warning', show: true},
+      blue: {variant: 'info', show: true},
+      green: {variant: 'success', show: true}
+    },
   },
   mutations: {
     addRoomInfo(state, infos) {
@@ -17,6 +23,12 @@ export const roomStore = {
     cleanContainer(state) {
       state.infoContainer = [];
       state.current = null;
+    },
+    showPoints(state, i) {
+      state.grade_settings[i].show = true
+    },
+    disShowPoints(state, i) {
+      state.grade_settings[i].show = false
     }
   },
   actions: {
@@ -47,6 +59,9 @@ export const roomStore = {
     },
     getCurrentId(state) {
       return state.current;
+    },
+    grade_settings(state) {
+      return state.grade_settings;
     }
   },
 };

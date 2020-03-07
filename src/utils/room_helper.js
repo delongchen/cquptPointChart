@@ -76,6 +76,8 @@ export function addMoreInfosOf(who) {
     },
     max_x = -1,
     max_y = -1,
+    min_x = 100,
+    min_y = 100,
     now_x,
     now_y;
 
@@ -85,6 +87,9 @@ export function addMoreInfosOf(who) {
 
       if ((now_x = room.infos.vx) > max_x) max_x = now_x;
       if ((now_y = room.infos.vy) > max_y) max_y = now_y;
+
+      if (now_x < min_x) min_x = now_x;
+      if (now_y < min_y) min_y = now_y;
 
       gradeCounter[room.infos.grade] += 1;
 
@@ -98,4 +103,8 @@ export function addMoreInfosOf(who) {
     vx: max_x,
     vy: max_y
   };
+  who.min = {
+    vx: min_x,
+    vy: min_y
+  }
 }

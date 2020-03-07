@@ -1,20 +1,22 @@
 export const chartToolSet = [
   {
-    title: "平均成绩-综合素质",
-    x: o => {
-      return o.vx;
+    x: {
+      f: o => o.vx,
+      text: '综合素质分'
     },
-    y: o => {
-      return o.vy * 2 + 5;
+    y: {
+      f:o => o.vy * 2 + 5,
+      text: '平均成绩'
     }
   },
   {
-    title: "fuck-dick",
-    x: o => {
-      return o.vx + o.vy;
+    x: {
+      f:o => o.vx + o.vy,
+      text: '我是X'
     },
-    y: o => {
-      return o.vx * o.vy;
+    y: {
+      f:o => o.vx * o.vy,
+      text: '我是Y'
     }
   }
 ];

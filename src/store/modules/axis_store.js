@@ -2,11 +2,10 @@ import {scaleLinear} from "d3-scale";
 import {select} from 'd3-selection'
 import {axisBottom, axisLeft} from "d3-axis";
 import {helper} from "@/utils/util";
+import {chartToolSet} from "@/chart/toolbar";
 
 export const axisStore = {
   state: {
-    max_x: o => o.vx,
-    max_y: o => o.vy,
     defaultHeight: 700,
     pageWidth: 1000,
     m: {
@@ -14,17 +13,16 @@ export const axisStore = {
       right: 20,
       bottom: 40,
       left: 26
-    }
+    },
+    axis_info: chartToolSet,
+    current_axis: 0
   },
   mutations: {
     setPageWidth(state, n) {
       state.pageWidth = n
     },
-    setX(state, f) {
-      state.max_x = f
-    },
-    setY(state, f) {
-      state.max_y = f
+    setCurrentAxis(state, n) {
+      state.current_axis = n;
     }
   },
   actions: {
@@ -32,15 +30,7 @@ export const axisStore = {
       select("#axis_x").call(axisBottom(getters.scale_x));
     },
     mount_axis_y({getters}) {
-      select("#axis_y").call(axisLeft(getters.scale_y))
-    },
-    setAxisX({commit, dispatch}, f) {
-      commit('setX', f);
-      dispatch('mount_axis_x');
-    },
-    setAxisY({commit, dispatch}, f) {
-      commit('setY', f);
-      dispatch('mount_axis_y')
+      select("#axis_y").call(axisLeft(getters.scale_y).ticks(7))
     },
     setNowWidth({commit, dispatch}, n) {
       commit('setPageWidth', n);
@@ -50,19 +40,25 @@ export const axisStore = {
   getters: {
     scale_x(state, getters) {
       return scaleLinear()
-        .domain([0, helper.near_max(state.max_x(getters.getCurrentObj.max))])
+        .domain([
+          helper.near_min(getters.fx(getters.getCurrentObj.min)),
+          helper.near_max(getters.fx(getters.getCurrentObj.max))
+        ])
         .range([0, getters.getChartWidth])
     },
     scale_y(state, getters) {
       return scaleLinear()
-        .domain([helper.near_max(state.max_y(getters.getCurrentObj.max)), 0])
+        .domain([
+          helper.near_max(getters.fy(getters.getCurrentObj.max)),
+          helper.near_min(getters.fy(getters.getCurrentObj.min))
+        ])
         .rangeRound([0, getters.getChartHeight])
     },
     fx(state) {
-      return state.max_x;
+      return state.axis_info[state.current_axis].x.f
     },
     fy(state) {
-      return state.max_y;
+      return state.axis_info[state.current_axis].y.f
     },
     getChartHeight(state) {
       return state.defaultHeight - state.m.bottom - state.m.top;
@@ -78,6 +74,15 @@ export const axisStore = {
     },
     getMargin(state) {
       return state.m;
+    },
+    getCurrentAxis(state) {
+      return state.axis_info[state.current_axis]
+    },
+    getAxisInfos(state) {
+      return {
+        li: state.axis_info,
+        n: state.current_axis
+      }
     }
   }
 };
