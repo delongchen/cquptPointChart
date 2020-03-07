@@ -1,24 +1,12 @@
 # re_work
 
-## Project setup
-```
-yarn install
-```
+老项目的重置
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
+大概增加了以下几个特性
 
-### Compiles and minifies for production
-```
-yarn build
-```
+- 查询历史保存
+- 更模块化的结构
+- 点阵互动性加强
+- 坐标动态设置
 
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [this](http://test.cqupt.online).
