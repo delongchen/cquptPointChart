@@ -3,7 +3,7 @@
     <b-button
         v-for="(v, k) in infos.li"
         :key="k"
-        @click="$store.commit('setCurrentAxis', k)"
+        @click="$store.dispatch('setCurrentAxis', k)"
         variant="light"
         :pressed="k === infos.n"
     >

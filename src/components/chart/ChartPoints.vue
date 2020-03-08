@@ -9,15 +9,8 @@
         :fill="v.infos.color"
         :cx="sx(fx(v.infos))"
         :cy="sy(fy(v.infos))"
-        @mouseleave="event => {
-              event.target.style.fill = v.infos.color;
-              $store.commit('showLines', false);
-            }"
-        @mouseenter="event => {
-              event.target.style.fill = v.infos.grade;
-              $store.dispatch('updateLinesInfo', v.infos)
-              $store.commit('showLines', true);
-            }"
+        @mouseleave="leave(v.infos, $event)"
+        @mouseenter="enter(v.infos, $event)"
         v-show="grade_settings[v.infos.grade].show" />
   </g>
 </template>
@@ -37,6 +30,17 @@
         grade_settings: 'grade_settings'
       })
     },
+    methods: {
+      enter(info, event) {
+        event.target.style.fill = info.grade;
+        this.$store.dispatch('updateLinesInfo', info);
+        this.$store.commit('showLines', true);
+      },
+      leave(info, event) {
+        event.target.style.fill = info.color;
+        this.$store.commit('showLines', false);
+      }
+    }
   }
 </script>
 

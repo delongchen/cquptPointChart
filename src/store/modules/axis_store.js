@@ -35,6 +35,11 @@ export const axisStore = {
     setNowWidth({commit, dispatch}, n) {
       commit('setPageWidth', n);
       dispatch('mount_axis_x')
+    },
+    setCurrentAxis({commit, dispatch}, n) {
+      commit('setCurrentAxis', n);
+      dispatch('mount_axis_x');
+      dispatch('mount_axis_y');
     }
   },
   getters: {
