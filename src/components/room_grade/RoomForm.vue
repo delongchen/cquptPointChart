@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-button @click="getOne">GET</b-button>
+    <b-button @click="$store.dispatch('parseRoomInfo', () => {$router.push('chart')})">GET</b-button>
   </div>
 </template>
 
@@ -13,13 +13,6 @@
       }
     },
     methods: {
-      getOne() {
-        this.$store
-          .dispatch('parseRoomInfo', './new_data.json')
-          .then(() => {
-            this.$router.push('chart')
-        })
-      }
     }
   }
 </script>
