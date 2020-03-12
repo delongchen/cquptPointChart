@@ -5,8 +5,8 @@ export const chartToolSet = [
       text: '综合素质分'
     },
     y: {
-      f:o => o.vy * 2 + 5,
-      text: '平均成绩'
+      f:o => o.vy,
+      text: '学科成绩'
     }
   },
   {

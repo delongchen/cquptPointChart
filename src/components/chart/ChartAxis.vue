@@ -10,7 +10,7 @@
           y="26"
           dy=".71em"
           style="fill: #2c3e50; text-anchor: end"
-      >{{ a.x.text }}</text>
+      >寝室平均{{ a.x.text }}</text>
     </g>
 
     <!-- y axis -->
@@ -20,7 +20,7 @@
           y="-16"
           dy=".71em"
           style="text-anchor: start; fill: #2c3e50"
-      >{{ a.y.text }}</text>
+      >寝室平均{{ a.y.text }}</text>
     </g>
   </g>
 </template>
