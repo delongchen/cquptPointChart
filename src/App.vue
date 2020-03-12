@@ -7,14 +7,13 @@
 
 <script>
   import ErrorAlert from "@/components/error_alert/ErrorAlert";
-export default {
-  name: 'App',
-  components: {
-    ErrorAlert
-  },
-  methods: {
+
+  export default {
+    name: 'App',
+    components: {
+      ErrorAlert,
+    },
   }
-}
 </script>
 
 <style>

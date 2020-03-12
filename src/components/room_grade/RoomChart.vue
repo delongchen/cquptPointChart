@@ -11,9 +11,6 @@
     components: {
       PointChart,
     },
-    data: () => ({
-
-    }),
   }
 </script>
 

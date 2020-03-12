@@ -7,7 +7,6 @@ import {roomStore} from "@/store/modules/room_store";
 import {errors} from "@/store/modules/errors";
 import {axisStore} from "@/store/modules/axis_store";
 import {lineStore} from "@/store/modules/line_store";
-import {toastStore} from "@/store/modules/toast_store";
 
 export const store = new Vuex.Store({
   state: {
@@ -19,6 +18,5 @@ export const store = new Vuex.Store({
     errors,
     axisStore,
     lineStore,
-    toast: toastStore
   }
 });

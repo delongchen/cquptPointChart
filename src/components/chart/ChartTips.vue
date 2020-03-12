@@ -14,7 +14,7 @@
             :key="sk"
             block
             :variant="stu.gua ? 'outline-danger' : 'outline-success'"
-            @click="$store.dispatch('toast/showToast')"
+            @click="showStuBts(stu)"
         >{{ stu['name_stu'] }}</b-button>
       </div>
     </b-popover>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+  const toastId = "stu-toast";
   export default {
     name: "ChartTips",
     computed: {
@@ -29,6 +30,12 @@
         return this.$store.getters['getCurrentObj']
       }
     },
+    methods: {
+      showStuBts(stu) {
+        const payload = {stu, id: toastId, doShow: () => {this.$bvToast.show(toastId);}};
+        this.$store.dispatch('toast/showToast', payload);
+      }
+    }
   }
 </script>
 
