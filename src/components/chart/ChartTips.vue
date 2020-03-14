@@ -7,7 +7,6 @@
         no-fade
         :target="`point-${k}`"
         :title="v.name"
-        @hidden="$bvToast.hide('stu-toast')"
         triggers="hover">
       <div :id="`point-bts-${k}`">
         <b-button
@@ -32,15 +31,18 @@
         <h5>{{ aTitle.x.text }}: {{ fx(infos) }}</h5>
         <h5>{{ aTitle.y.text }}: {{ fy(infos) }}</h5>
       </div>
+      <pie-chart />
     </b-toast>
   </div>
 </template>
 
 <script>
   import {mapGetters} from 'vuex'
+  import PieChart from "@/components/chart/PieChart";
 
   export default {
     name: "ChartTips",
+    components: {PieChart},
     data() {
       return {
         infos: {}
