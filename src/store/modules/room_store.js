@@ -33,10 +33,10 @@ export const roomStore = {
   },
   actions: {
     async parseRoomInfo({commit, state}, payload) {
-      const response = await axios.post('./data.json', {});
+      const response = await axios.get('./data.json');
       commit('addRoomInfo', await helper.transRoomInfo(response.data));
       commit('setCurrent', state.infoContainer.length - 1);
-      payload.f();
+      payload();
     }
   },
   getters: {
