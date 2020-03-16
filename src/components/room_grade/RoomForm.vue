@@ -10,6 +10,10 @@
         @click="$store.dispatch('parseRoomInfo', () => {$router.push('chart')})"
         variant="info"
     >GET</b-button>
+    <b-button
+        @click="$store.commit('form/reset')"
+        variant="danger"
+    >RESET</b-button>
   </div>
 </template>
 

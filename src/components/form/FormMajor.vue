@@ -5,11 +5,14 @@
       description="学号"
       label="专业: "
       label-for="major-select"
+      label-size="lg"
   >
     <b-form-select
         id="major-select"
         :options="$store.getters['form/major']"
-        v-model="$store.state['form'].message.num_major">
+        v-model="$store.state['form'].message.num_major"
+        size="lg"
+    >
       <template v-slot:first>
         <b-select-option :value="null">ALL</b-select-option>
       </template>
