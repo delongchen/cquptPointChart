@@ -1,3 +1,5 @@
+import {formData} from "@/components/form/data";
+
 export const formStore = {
   namespaced: true,
   state: {
@@ -10,9 +12,12 @@ export const formStore = {
       num_college: null,
       num_major: null,
       sex: null
-    }
+    },
+    formData
   },
   getters: {
-
+    major(state) {
+      return state.formData.major[state.message.num_college]
+    }
   }
 };

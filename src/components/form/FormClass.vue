@@ -1,14 +1,15 @@
 <template>
   <b-form-group
-      class="mb-0"
-      label="Text input with formatter (on input)"
-      label-for="input-formatter"
-      description="We will convert your name to lowercase instantly"
+      label-cols-sm="4"
+      label-cols-lg="1"
+      description="班级号是8位哦"
+      label="班级: "
+      label-for="stu-class-input"
   >
     <b-form-input
-        id="input-formatter"
+        id="stu-class-input"
         v-model="message.num_class"
-        placeholder="Enter your name" />
+        placeholder="08041704" />
   </b-form-group>
 </template>
 

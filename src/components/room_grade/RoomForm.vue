@@ -1,23 +1,31 @@
 <template>
   <div>
-    <b-button @click="$store.dispatch('parseRoomInfo', () => {$router.push('chart')})">GET</b-button>
     <b-form style="text-align: left">
+      <form-stu-id />
       <form-class />
       <form-college />
+      <form-major />
     </b-form>
-    <p>{{ $store.state['form'].message }}</p>
+    <b-button
+        @click="$store.dispatch('parseRoomInfo', () => {$router.push('chart')})"
+        variant="info"
+    >GET</b-button>
   </div>
 </template>
 
 <script>
+  import FormStuId from "@/components/form/FormStuId";
   import FormClass from "@/components/form/FormClass";
   import FormCollege from "@/components/form/FormCollege";
+  import FormMajor from "@/components/form/FormMajor";
 
   export default {
     name: "RoomForm",
     components: {
       FormClass,
-      FormCollege
+      FormCollege,
+      FormStuId,
+      FormMajor
     }
   }
 </script>
